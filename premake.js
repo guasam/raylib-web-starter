@@ -29,7 +29,7 @@ if (prepareDeploy) {
 
   // Find existing html file to rename as 'index.html'
   glob(build_dir + '/**/*.html', {}, (err, files) => {
-    if (!files.length) return;
+    if (Array.isArray(files) && !files.length) return;
     // Check if first index contains index.html
     if (path.basename(files[0]) === 'index.html') {
       // Remove this file index
