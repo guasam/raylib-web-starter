@@ -33,19 +33,67 @@
     />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://github.com/guasam/raylib-web-starter/raw/main/resources/icon.ico" />
+    <link
+      rel="shortcut icon"
+      href="https://github.com/guasam/raylib-web-starter/raw/main/resources/icon.ico"
+    />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"
+      integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
     <style>
+      html,
       body {
-        font-family: arial;
+        padding: 0;
         margin: 0;
-        padding: none;
+        font-size: 14px;
       }
 
-      #header {
-        width: 100%;
-        height: 80px;
-        background-color: #888888;
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.5;
+      }
+
+      #rws-header {
+        display: flex;
+        height: 50px;
+        background-color: #3765af;
+        align-items: center;
+      }
+
+      #rws-header .logo {
+        font-weight: bold;
+        color: #fff;
+        margin: 0 16px;
+        text-shadow: 0px 1px black;
+        font-size: 16px;
+      }
+
+      #rws-header #spinner {
+        display: flex;
+        align-items: center;
+        background: hsl(217deg 52% 30%);
+        padding: 2px 8px;
+        color: #fff;
+        border-radius: 4px;
+        font-size: calc(1rem - 2px);
+      }
+
+      #rws-header #spinner .fa-spinner {
+        margin-right: 0.5rem;
+      }
+
+      input[type='button'] {
+        background: hsl(217deg 52% 70%);
+        font-size: 12px;
+        border: 0;
+        border-radius: 4px;
+        padding: 4px 8px;
+        color: #0d1727;
       }
 
       .emscripten {
@@ -54,91 +102,25 @@
         margin-right: auto;
         display: block;
       }
+
+      #controls {
+        flex: 1;
+        display: flex;
+        justify-content: end;
+      }
+      #controls > div {
+        margin-right: 16px;
+      }
+
       div.emscripten {
         text-align: center;
       }
-      div.emscripten_border {
-        border: 1px solid black;
-      }
 
-      /* NOTE: Canvas *must not* have any border or padding, or mouse coords will be wrong */
+      /* Canvas [MUST NOT] have any border or padding to prevent invalid mouse coordinates */
       canvas.emscripten {
         border: 0px none;
-        background: black;
+        background: #f5f5f5;
         width: 100%;
-      }
-
-      .spinner {
-        height: 30px;
-        width: 30px;
-        margin: 0;
-        margin-top: 20px;
-        margin-left: 20px;
-        display: inline-block;
-        vertical-align: top;
-        -webkit-animation: rotation 0.8s linear infinite;
-        -moz-animation: rotation 0.8s linear infinite;
-        -o-animation: rotation 0.8s linear infinite;
-        animation: rotation 0.8s linear infinite;
-        border-left: 5px solid black;
-        border-right: 5px solid black;
-        border-bottom: 5px solid black;
-        border-top: 5px solid red;
-        border-radius: 100%;
-        background-color: rgb(245, 245, 245);
-      }
-      @-webkit-keyframes rotation {
-        from {
-          -webkit-transform: rotate(0deg);
-        }
-        to {
-          -webkit-transform: rotate(360deg);
-        }
-      }
-      @-moz-keyframes rotation {
-        from {
-          -moz-transform: rotate(0deg);
-        }
-        to {
-          -moz-transform: rotate(360deg);
-        }
-      }
-      @-o-keyframes rotation {
-        from {
-          -o-transform: rotate(0deg);
-        }
-        to {
-          -o-transform: rotate(360deg);
-        }
-      }
-      @keyframes rotation {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      #status {
-        display: inline-block;
-        vertical-align: top;
-        margin-top: 30px;
-        margin-left: 20px;
-        font-weight: bold;
-        color: rgb(40, 40, 40);
-      }
-
-      #progress {
-        height: 0px;
-        width: 0px;
-      }
-
-      #controls {
-        float: right;
-        vertical-align: top;
-        margin-top: 15px;
-        margin-right: 20px;
       }
 
       #output {
@@ -152,43 +134,34 @@
         font-family: 'Lucida Console', Monaco, monospace;
         outline: none;
       }
-
-      input[type='button'] {
-        background-color: lightgray;
-        border: 4px solid darkgray;
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-        width: 140px;
-        height: 50px;
-      }
-
-      input[type='button']:hover {
-        background-color: #f5f5f5ff;
-        border-color: black;
-      }
     </style>
   </head>
   <body>
-    <div id="header">
-      <div class="spinner" id="spinner"></div>
-      <div class="emscripten" id="status">Downloading...</div>
+    <div id="rws-header">
+      <h1 class="logo">Raylib Web Starter</h1>
 
-      <span id="controls">
-        <span
-          ><input
+      <div id="spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        <div class="emscripten" id="status">Downloading...</div>
+      </div>
+
+      <div id="controls">
+        <div>
+          <input
             type="button"
-            value="🖵 FULLSCREEN"
+            value="FULLSCREEN"
             onclick="Module.requestFullscreen(false, false)"
-        /></span>
-        <span
-          ><input
+          />
+        </div>
+        <div>
+          <input
             type="button"
             id="btn-audio"
-            value="🔇 SUSPEND"
+            value="SUSPEND"
             onclick="toggleAudio()"
-        /></span>
-      </span>
+          />
+        </div>
+      </div>
 
       <div class="emscripten">
         <progress value="0" max="100" id="progress" hidden="1"></progress>
