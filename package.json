@@ -9,11 +9,12 @@
     "url": "https://github.com/guasam"
   },
   "scripts": {
-    "premake": "node prebuild.js",
+    "premake": "node premake.js",
     "make": "make PLATFORM=PLATFORM_WEB -B",
     "serve": "serve build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "pnpm premake && pnpm make",
+    "deploy": "gh-pages -d build",
+    "clean": "rm -rf build/ out/ obj/"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3",
