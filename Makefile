@@ -28,6 +28,10 @@ PROJECT_NAME       ?= raylib_web_starter
 RAYLIB_VERSION     ?= 3.7.0
 RAYLIB_PATH        ?= C:/raylib/raylib
 
+# Build output directory name
+BUILD_OUT_DIR		?= build
+OBJ_OUT_DIR			?= obj
+
 # Define default options
 
 # One of PLATFORM_DESKTOP, PLATFORM_RPI, PLATFORM_ANDROID, PLATFORM_WEB
@@ -257,6 +261,8 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 
     # Define a custom shell .html and output extension
     CFLAGS += --shell-file $(RAYLIB_PATH)/src/shell.html
+
+    # Extension
     EXT = .html
 endif
 
@@ -386,6 +392,7 @@ else
     MAKEFILE_PARAMS = $(PROJECT_NAME)
 endif
 
+
 # Default target entry
 # NOTE: We call this Makefile target or Makefile.Android target
 all:
@@ -393,12 +400,12 @@ all:
 
 # Project target defined by PROJECT_NAME
 $(PROJECT_NAME): $(OBJS)
-	$(CC) -o $(PROJECT_NAME)$(EXT) $(OBJS) $(CFLAGS) $(INCLUDE_PATHS) $(LDFLAGS) $(LDLIBS) -D$(PLATFORM)
+	$(CC) -o ${BUILD_OUT_DIR}/$(PROJECT_NAME)$(EXT) $(OBJS) $(CFLAGS) $(INCLUDE_PATHS) $(LDFLAGS) $(LDLIBS) -D$(PLATFORM)
 
 # Compile source files
 # NOTE: This pattern will compile every module defined on $(OBJS)
 %.o: %.cpp
-	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDE_PATHS) -D$(PLATFORM)
+	$(CC) -c $< -o ${subst src/,obj/, $@} $(CFLAGS) $(INCLUDE_PATHS) -D$(PLATFORM)
 
 # Clean everything
 clean:
