@@ -12,7 +12,7 @@
     "premake": "node premake.js",
     "make": "make PLATFORM=PLATFORM_WEB -B",
     "serve": "serve build",
-    "predeploy": "pnpm premake && pnpm make",
+    "predeploy": "pnpm premake prepare-deploy && pnpm make",
     "deploy": "gh-pages -d build",
     "clean": "rm -rf build/ out/ obj/"
   },
