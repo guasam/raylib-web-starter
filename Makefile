@@ -260,7 +260,7 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
     CFLAGS += -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1 --preload-file resources
 
     # Define a custom shell .html and output extension
-    CFLAGS += --shell-file $(RAYLIB_PATH)/src/shell.html
+    CFLAGS += --shell-file shell.html -s MINIFY_HTML=0
 
     # Extension
     EXT = .html
