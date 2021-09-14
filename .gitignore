@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# vcpkg
+vcpkg_installed/
+
+# ImGui default config
+imgui.ini
+
+# Temporary
+temp/
