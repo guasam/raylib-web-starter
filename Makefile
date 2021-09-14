@@ -65,7 +65,7 @@ USE_WAYLAND_DISPLAY   ?= FALSE
 
 # Define all source files required
 PROJECT_SOURCE_FILES ?= \
-    main.cpp \
+    src/main.cpp \
 
 # Determine PLATFORM_OS in case PLATFORM_DESKTOP selected
 ifeq ($(PLATFORM),PLATFORM_DESKTOP)
