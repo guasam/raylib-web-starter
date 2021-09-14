@@ -1,3 +1,10 @@
+/**
+ * Raylib Web Starter
+ *
+ * This project will be usedd for compiling raylib (v3.7.0) for PLATFORM_WEB and PLATFORM_DESKTOP
+ * Copyright (c) 2021 Guasam (@guasam)
+ */
+
 #include "raylib.h"
 
 #if defined(PLATFORM_WEB)
