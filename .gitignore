@@ -370,3 +370,6 @@ imgui.ini
 
 # Temporary
 temp/
+
+# node modules
+node_modules/
