@@ -260,8 +260,10 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
     CFLAGS += -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1 --preload-file resources
 
     # Define a custom shell .html and output extension
-    CFLAGS += --shell-file shell.html -s MINIFY_HTML=0
+    CFLAGS += --shell-file shell.html -s MINIFY_HTML=0 -s EXPORTED_RUNTIME_METHODS=["cwrap"]
 
+    # Exported api
+    CFLAGS += -s 'EXPORTED_FUNCTIONS=["_main", "_my_add"]'
     # Extension
     EXT = .html
 endif

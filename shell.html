@@ -62,6 +62,7 @@
       body {
         font-family: Arial, Helvetica, sans-serif;
         line-height: 1.5;
+        background-color: #f5f5f5;
       }
 
       #rws-header {
@@ -360,6 +361,10 @@
               : 'All downloads complete.',
           );
         },
+        onRuntimeInitialized: function () {
+          my_add = Module.cwrap('my_add', 'number', ['number', 'number']);
+          console.log('1 + 2 = ' + my_add(1, 2));
+        },
         //noInitialRun: true
       };
 
@@ -416,13 +421,33 @@
         elem.classList.toggle('active');
       }
 
-      function available_screen_width () {
+      function available_screen_width() {
         return window.innerWidth;
       }
 
       function available_screen_height() {
         return window.innerHeight - rwsHeader.clientHeight;
       }
+
+      function debounce(func) {
+        var timer;
+        return function (event) {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(func, 100, event);
+        };
+      }
+
+      window.addEventListener(
+        'resize',
+        debounce(function (e) {
+          var canvas = document.getElementsByTagName('canvas')[0];
+          my_add = Module.cwrap('my_add', 'number', ['number', 'number']);
+          canvas.width = available_screen_width();
+          canvas.height = available_screen_height();
+          my_add(canvas.width, canvas.height);
+          console.log('end of resizing');
+        }),
+      );
     </script>
 
     {{{ SCRIPT }}}

@@ -14,8 +14,8 @@
 
 void UpdateDrawFrame(void);
 Texture2D iconTexture;
-int screenWidth = 414;
-int screenHeight = 736;
+int screenWidth = 414; // 414
+int screenHeight = 686; // 736
 int rotation = 0;
 Vector2 textSize = { 0.0f, 0.0f };
 int fontSize = 20;
@@ -29,7 +29,6 @@ EM_JS(int, get_canvas_width, (), {
 return available_screen_width();
     }
 );
-
 EM_JS(int, get_canvas_height, (), {
 return available_screen_height();
     }
@@ -38,6 +37,24 @@ return available_screen_height();
 
 int get_canvas_width();
 int get_canvas_height();
+
+
+extern "C" {
+    int my_add(int a, int b);
+}
+
+int my_add(int a, int b) {
+
+    //screenWidth = a;
+    //screenHeight = b;
+
+    //SetWindowSize(screenWidth, screenHeight);
+
+#if defined(PLATFORM_WEB)
+    printf("=========================");
+#endif
+    return a + b;
+}
 
 int main(void)
 {
@@ -57,10 +74,10 @@ int main(void)
     // Load texture (must be after initializing window to get OpenGL Context)
     iconTexture = LoadTexture("resources/icon.png");
 
+
 #if defined(PLATFORM_WEB)
-
+    // Must be after initializing window
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
-
 #else
 
     SetTargetFPS(60);
