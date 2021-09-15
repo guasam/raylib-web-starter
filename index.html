@@ -83,11 +83,12 @@
       #rws-header #spinner {
         display: flex;
         align-items: center;
-        background: hsl(217deg 52% 30%);
+        background: hsl(217deg 52% 35%);
         padding: 4px 8px;
         color: #fff;
         border-radius: 4px;
         font-size: calc(1rem - 2px);
+        opacity: 0.75;
       }
 
       #rws-header #spinner .fa-spinner {
@@ -110,7 +111,7 @@
         display: block;
       }
 
-      #controls {
+      #console-switch {
         border-radius: 4px;
         color: #fff;
         text-align: center;
@@ -118,9 +119,23 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 4px 10px;
+        padding: 4px 12px;
         background: hsl(217deg 52% 35%);
         margin-right: 16px;
+      }
+
+      .console {
+        display: flex;
+        flex-direction: column;
+        background: hsl(217deg 26% 16% / 99%);
+        position: fixed;
+        top: 50px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+      .console-controls {
+        flex: 1
       }
 
       div.emscripten {
@@ -134,15 +149,18 @@
         width: 100%;
       }
 
-      #output {
+      .output-wrapper {
+        padding: 6px;
+      }
+      .output-wrapper #output {
         width: 100%;
         height: 140px;
-        margin: 0 auto;
-        margin-top: 10px;
         display: block;
-        background-color: black;
+        background-color: #10151c;
         color: rgb(37, 174, 38);
         font-family: 'Lucida Console', Monaco, monospace;
+        border: 0;
+        box-sizing: border-box;
         outline: none;
       }
     </style>
@@ -160,8 +178,27 @@
         <progress value="0" max="100" id="progress" hidden="1"></progress>
       </div>
 
-      <div id="controls">
+      <div id="console-switch">
         <i class="fas fa-angle-down"></i>
+      </div>
+    </div>
+
+    <div class="console">
+      <div class="console-controls">
+        <input
+          type="button"
+          value="FULLSCREEN"
+          onclick="Module.requestFullscreen(false, false)"
+        />
+        <input
+          type="button"
+          id="btn-audio"
+          value="SUSPEND"
+          onclick="toggleAudio()"
+        />
+      </div>
+      <div class="output-wrapper">
+        <textarea id="output" rows="8"></textarea>
       </div>
     </div>
 
@@ -191,8 +228,6 @@
         tabindex="-1"
       ></canvas>
     </div>
-
-    <textarea id="output" rows="8"></textarea>
 
     <script
       type="text/javascript"
