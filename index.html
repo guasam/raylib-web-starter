@@ -408,10 +408,20 @@
     </script>
 
     <script type="text/javascript">
+      var rwsHeader = document.getElementById('rws-header');
+
       function toggleConsole(elem) {
         var consoleElem = document.querySelector('.console');
         consoleElem.classList.toggle('active');
         elem.classList.toggle('active');
+      }
+
+      function available_screen_width () {
+        return window.innerWidth;
+      }
+
+      function available_screen_height() {
+        return window.innerHeight - rwsHeader.clientHeight;
       }
     </script>
 
