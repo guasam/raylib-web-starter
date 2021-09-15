@@ -106,9 +106,9 @@ void UpdateDrawFrame(void)
     rotation++;
 
     // Scale image
-    float scale = 0.75f;
+    float scale = 0.5f;
 
-    DrawTexturePro(
+    DrawTexturePro( 
         iconTexture,
         Rectangle{ 0, 0, (float)iconTexture.width, (float)iconTexture.height },
         Rectangle{ screenWidth / 2.0f, screenHeight / 2.0f, iconTexture.width * scale, iconTexture.height * scale },
