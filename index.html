@@ -70,6 +70,7 @@
         height: 50px;
         background-color: #3765af;
         align-items: center;
+        z-index: 100;
       }
 
       #rws-header .logo {
@@ -123,6 +124,13 @@
         background: hsl(217deg 52% 35%);
         margin-right: 16px;
       }
+      #console-switch:hover, #console-switch:active {
+        background: hsl(217deg 52% 28%);
+      }
+      #console-switch:not(.active) .fa-angle-up,
+      #console-switch.active .fa-angle-down {
+        display: none;
+      }
 
       .console {
         display: flex;
@@ -131,8 +139,14 @@
         position: fixed;
         top: 50px;
         bottom: 0;
+        z-index: 10;
         right: 0;
         left: 0;
+        transform: translateY(-100%);
+        transition: 0.2s transform ease-in-out;
+      }
+      .console.active {
+        transform: translateY(0);
       }
       .console-controls {
         flex: 1;
@@ -143,11 +157,14 @@
         background: hsl(216deg 20% 25%);
         font-size: 12px;
         border: 0;
-        border-radius: 4px;
+        border-radius: 8px;
         padding: 12px 16px;
         color: #c1c1c1;
         margin: 25px;
         margin-bottom: 0;
+      }
+      .console-controls .button:hover, .console-controls.button:active {
+        background: hsl(216deg 20% 20%);
       }
 
       div.emscripten {
@@ -190,8 +207,9 @@
         <progress value="0" max="100" id="progress" hidden="1"></progress>
       </div>
 
-      <div id="console-switch">
+      <div id="console-switch" onclick="toggleConsole(this)">
         <i class="fas fa-angle-down"></i>
+        <i class="fas fa-angle-up"></i>
       </div>
     </div>
 
@@ -212,7 +230,7 @@
         />
       </div>
       <div class="output-wrapper">
-        <textarea id="output" rows="8"></textarea>
+        <textarea id="output" rows="8" spellcheck="false" readonly></textarea>
       </div>
     </div>
 
@@ -388,6 +406,15 @@
         else audioBtn.value = 'ðŸ”ˆ RESUME';
       }
     </script>
+
+    <script type="text/javascript">
+      function toggleConsole(elem) {
+        var consoleElem = document.querySelector('.console');
+        consoleElem.classList.toggle('active');
+        elem.classList.toggle('active');
+      }
+    </script>
+
     <script async type="text/javascript" src="raylib_web_starter.js"></script>
   </body>
 </html>
