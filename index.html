@@ -135,7 +135,19 @@
         left: 0;
       }
       .console-controls {
-        flex: 1
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .console-controls .button {
+        background: hsl(216deg 20% 25%);
+        font-size: 12px;
+        border: 0;
+        border-radius: 4px;
+        padding: 12px 16px;
+        color: #c1c1c1;
+        margin: 25px;
+        margin-bottom: 0;
       }
 
       div.emscripten {
@@ -186,11 +198,13 @@
     <div class="console">
       <div class="console-controls">
         <input
+          class="button"
           type="button"
           value="FULLSCREEN"
           onclick="Module.requestFullscreen(false, false)"
         />
         <input
+          class="button"
           type="button"
           id="btn-audio"
           value="SUSPEND"
@@ -199,24 +213,6 @@
       </div>
       <div class="output-wrapper">
         <textarea id="output" rows="8"></textarea>
-      </div>
-    </div>
-
-    <div style="display: none">
-      <div>
-        <input
-          type="button"
-          value="FULLSCREEN"
-          onclick="Module.requestFullscreen(false, false)"
-        />
-      </div>
-      <div>
-        <input
-          type="button"
-          id="btn-audio"
-          value="SUSPEND"
-          onclick="toggleAudio()"
-        />
       </div>
     </div>
 
