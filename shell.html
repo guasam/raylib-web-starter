@@ -33,7 +33,6 @@
     />
 
     <!-- Favicon -->
-<<<<<<< HEAD
     <link
       rel="shortcut icon"
       href="https://github.com/guasam/raylib-web-starter/raw/main/resources/icon.ico"
@@ -45,9 +44,11 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-=======
-    <link rel="shortcut icon" href="https://github.com/guasam/raylib-web-starter/raw/main/resources/icon.ico" />
->>>>>>> 6dc6a9bd297a1ef0b9c8d91c0b02a67df568978e
+
+    <link
+      rel="shortcut icon"
+      href="https://github.com/guasam/raylib-web-starter/raw/main/resources/icon.ico"
+    />
 
     <style>
       html,
@@ -63,6 +64,7 @@
       }
 
       #rws-header {
+        position: relative;
         display: flex;
         height: 50px;
         background-color: #3765af;
@@ -81,7 +83,7 @@
         display: flex;
         align-items: center;
         background: hsl(217deg 52% 30%);
-        padding: 2px 8px;
+        padding: 4px 8px;
         color: #fff;
         border-radius: 4px;
         font-size: calc(1rem - 2px);
@@ -108,12 +110,22 @@
       }
 
       #controls {
-        flex: 1;
-        display: flex;
-        justify-content: end;
-      }
-      #controls > div {
-        margin-right: 16px;
+        position: absolute;
+        top: calc(100% - 8px);
+        left: calc(50% - 5%);
+        width: 10%;
+        background: linear-gradient(
+          to bottom,
+          hsl(217deg 52% 45%),
+          hsl(217deg 52% 41%)
+        );
+        height: 30px;
+        border-radius: 0 0 6px 6px;
+        box-shadow: 0 5px 5px #00000033;
+        z-index: 1;
+        color: #ffffffc7;
+        text-align: center;
+        font-size: 1.5rem;
       }
 
       div.emscripten {
@@ -149,26 +161,30 @@
         <div class="emscripten" id="status">Downloading...</div>
       </div>
 
-      <div id="controls">
-        <div>
-          <input
-            type="button"
-            value="FULLSCREEN"
-            onclick="Module.requestFullscreen(false, false)"
-          />
-        </div>
-        <div>
-          <input
-            type="button"
-            id="btn-audio"
-            value="SUSPEND"
-            onclick="toggleAudio()"
-          />
-        </div>
-      </div>
-
       <div class="emscripten">
         <progress value="0" max="100" id="progress" hidden="1"></progress>
+      </div>
+
+      <div id="controls">
+        <i class="fas fa-angle-down"></i>
+      </div>
+    </div>
+
+    <div style="display: none">
+      <div>
+        <input
+          type="button"
+          value="FULLSCREEN"
+          onclick="Module.requestFullscreen(false, false)"
+        />
+      </div>
+      <div>
+        <input
+          type="button"
+          id="btn-audio"
+          value="SUSPEND"
+          onclick="toggleAudio()"
+        />
       </div>
     </div>
 
