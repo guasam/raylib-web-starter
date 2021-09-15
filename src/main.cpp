@@ -20,7 +20,7 @@ int rotation = 0;
 Vector2 textSize = { 0.0f, 0.0f };
 int fontSize = 20;
 int fontSpacing = 2; // For correct alignement?
-const char* headText = "Raylib Web Starter";
+const char* headText = "HELLO RAYLIB WORLD!";
 const char* strictText = "Copyright (c) 2021 Guasam";
 
 
@@ -44,15 +44,6 @@ extern "C" {
 }
 
 int my_add(int a, int b) {
-
-    //screenWidth = a;
-    //screenHeight = b;
-
-    //SetWindowSize(screenWidth, screenHeight);
-
-#if defined(PLATFORM_WEB)
-    printf("=========================");
-#endif
     return a + b;
 }
 
