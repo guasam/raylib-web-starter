@@ -2,6 +2,8 @@
 
 A custom project for building and deplying Raylib C++ (game engine) projects with no hassle for the `PLATFORM_WEB`.
 
+Demo : https://guasam.github.io/raylib-web-starter
+
 <br />
 
 ## Why this doohickey?
