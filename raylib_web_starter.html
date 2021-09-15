@@ -110,22 +110,16 @@
       }
 
       #controls {
-        position: absolute;
-        top: calc(100% - 8px);
-        left: calc(50% - 5%);
-        width: 14%;
-        background: linear-gradient(
-          to bottom,
-          hsl(217deg 52% 45%),
-          hsl(217deg 52% 41%)
-        );
-        height: 30px;
-        border-radius: 0 0 6px 6px;
-        z-index: 1;
+        border-radius: 4px;
         color: #fff;
         text-align: center;
         font-size: 1.25rem;
-        line-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 10px;
+        background: hsl(217deg 52% 35%);
+        margin-right: 16px;
       }
 
       div.emscripten {
