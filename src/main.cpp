@@ -17,6 +17,7 @@ Texture2D iconTexture;
 int screenWidth = 414; // 414
 int screenHeight = 686; // 736
 int rotation = 0;
+int customRotation = 0;
 Font font;
 float fontSize = 22.0f;
 float fontSpacing = 2.0f; // For correct alignement?
@@ -24,6 +25,8 @@ Vector2 textSize = { 0.0f, 0.0f };
 const char* headText = "HELLO RAYLIB WORLD!";
 const char* strictText = "Copyright (c) 2021 Guasam";
 
+bool rotorMove = false;
+int rotorMultiplier = 1;
 
 #if defined(PLATFORM_WEB)
 EM_JS(int, get_canvas_width, (), {
@@ -93,44 +96,66 @@ int main(void)
 
 void UpdateDrawFrame(void)
 {
+    int gesture = GetGestureDetected();
+
     BeginDrawing();
+    {
+        ClearBackground(RAYWHITE);
 
-    ClearBackground(RAYWHITE);
+        // Draw text
+        textSize = MeasureTextEx(font, headText, fontSize, fontSpacing);
+        DrawTextEx(font, headText, Vector2{ (screenWidth - textSize.x) / 2.0f, textSize.y + 20 }, fontSize, fontSpacing, BLACK);
+        //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, textSize.y, textSize.x, textSize.y, RED);
 
-    // Draw text
-    textSize = MeasureTextEx(font, headText, fontSize, fontSpacing);
-    DrawTextEx(font, headText, Vector2{(screenWidth - textSize.x) / 2.0f, textSize.y + 20}, fontSize, fontSpacing, BLACK);
-    //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, textSize.y, textSize.x, textSize.y, RED);
+        // Draw text
+        textSize = MeasureTextEx(font, strictText, fontSize, fontSpacing);
+        DrawTextEx(font, strictText, Vector2{ (screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20 }, fontSize, fontSpacing, BLACK);
+        //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20, textSize.x, textSize.y, RED);
 
-    // Draw text
-    textSize = MeasureTextEx(font, strictText, fontSize, fontSpacing);
-    DrawTextEx(font, strictText, Vector2{(screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20}, fontSize, fontSpacing, BLACK);
-    //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20, textSize.x, textSize.y, RED);
+        // Increment rotation
+        rotation++;
 
-    // Increment rotation
-    rotation++;
+        // Scale image
+        float scale = 0.5f;
+        float scaleBig = 0.6f;
 
-    // Scale image
-    float scale = 0.5f;
-    float scaleBig = 0.6f;
+        DrawTexturePro(
+            iconTexture,
+            Rectangle{ 0, 0, (float)iconTexture.width, (float)iconTexture.height },
+            Rectangle{ screenWidth / 2.0f, screenHeight / 2.0f, iconTexture.width * scaleBig, iconTexture.height * scaleBig },
+            Vector2{ iconTexture.width / 2.0f * scaleBig, iconTexture.height / 2.0f * scaleBig },
+            (float)rotation,
+            LIGHTGRAY
+        );
 
-    DrawTexturePro(
-        iconTexture,
-        Rectangle{ 0, 0, (float)iconTexture.width, (float)iconTexture.height },
-        Rectangle{ screenWidth / 2.0f, screenHeight / 2.0f, iconTexture.width * scaleBig, iconTexture.height * scaleBig },
-        Vector2{ iconTexture.width / 2.0f * scaleBig, iconTexture.height / 2.0f * scaleBig },
-        (float)rotation,
-        LIGHTGRAY
-    );
+        if (gesture != GESTURE_NONE)
+        {
+            switch (gesture) {
+            case GESTURE_SWIPE_UP:
+                rotorMove = true;
+                rotorMultiplier = 1;
+                break;
+            case GESTURE_HOLD:
+                rotorMultiplier = false;
+                break;
+            case GESTURE_SWIPE_DOWN:
+                rotorMove = true;
+                rotorMultiplier = -1;
+                break;
+            }
+        }
 
-    DrawTexturePro(
-        iconTexture,
-        Rectangle{ 0, 0, (float)iconTexture.width, (float)iconTexture.height },
-        Rectangle{ screenWidth / 2.0f, screenHeight / 2.0f, iconTexture.width * scale, iconTexture.height * scale },
-        Vector2{ iconTexture.width / 2.0f * scale, iconTexture.height / 2.0f * scale },
-        -(float)rotation,
-        WHITE
-    );
+        if (rotorMove)
+            customRotation = customRotation + rotorMultiplier;
 
+        DrawTexturePro(
+            iconTexture,
+            Rectangle{ 0, 0, (float)iconTexture.width, (float)iconTexture.height },
+            Rectangle{ screenWidth / 2.0f, screenHeight / 2.0f, iconTexture.width * scale, iconTexture.height * scale },
+            Vector2{ iconTexture.width / 2.0f * scale, iconTexture.height / 2.0f * scale },
+            (float)customRotation,
+            WHITE
+        );
+    }
     EndDrawing();
 }
