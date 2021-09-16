@@ -97,14 +97,14 @@ void UpdateDrawFrame(void)
 
     ClearBackground(RAYWHITE);
 
-    // Draw text 
+    // Draw text
     textSize = MeasureTextEx(font, headText, fontSize, fontSpacing);
-    DrawTextEx(font, headText, Vector2{ (screenWidth - textSize.x) / 2.0f, textSize.y + 20 }, fontSize, fontSpacing, GRAY);
+    DrawTextEx(font, headText, Vector2{(screenWidth - textSize.x) / 2.0f, textSize.y + 20}, fontSize, fontSpacing, BLACK);
     //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, textSize.y, textSize.x, textSize.y, RED);
 
     // Draw text
     textSize = MeasureTextEx(font, strictText, fontSize, fontSpacing);
-    DrawTextEx(font, strictText, Vector2{ (screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20 }, fontSize, fontSpacing, GRAY);
+    DrawTextEx(font, strictText, Vector2{(screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20}, fontSize, fontSpacing, BLACK);
     //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20, textSize.x, textSize.y, RED);
 
     // Increment rotation
