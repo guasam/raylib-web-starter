@@ -17,9 +17,10 @@ Texture2D iconTexture;
 int screenWidth = 414; // 414
 int screenHeight = 686; // 736
 int rotation = 0;
+Font font;
+float fontSize = 22.0f;
+float fontSpacing = 2.0f; // For correct alignement?
 Vector2 textSize = { 0.0f, 0.0f };
-int fontSize = 20;
-int fontSpacing = 2; // For correct alignement?
 const char* headText = "HELLO RAYLIB WORLD!";
 const char* strictText = "Copyright (c) 2021 Guasam";
 
@@ -65,6 +66,9 @@ int main(void)
     // Load texture (must be after initializing window to get OpenGL Context)
     iconTexture = LoadTexture("resources/icon.png");
 
+    // Load Font
+    font = LoadFontEx("resources/NotoSans-Regular.ttf", (int)fontSize, 0, 250);
+
 
 #if defined(PLATFORM_WEB)
     // Must be after initializing window
@@ -81,6 +85,7 @@ int main(void)
 #endif
 
     UnloadTexture(iconTexture);
+    UnloadFont(font);
 
     CloseWindow();
     return 0;
@@ -93,13 +98,13 @@ void UpdateDrawFrame(void)
     ClearBackground(RAYWHITE);
 
     // Draw text 
-    textSize = MeasureTextEx(GetFontDefault(), headText, fontSize, fontSpacing);
-    DrawText(headText, (screenWidth - textSize.x) / 2.0f, textSize.y + 20, fontSize, GRAY);
+    textSize = MeasureTextEx(font, headText, fontSize, fontSpacing);
+    DrawTextEx(font, headText, Vector2{ (screenWidth - textSize.x) / 2.0f, textSize.y + 20 }, fontSize, fontSpacing, GRAY);
     //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, textSize.y, textSize.x, textSize.y, RED);
 
     // Draw text
-    textSize = MeasureTextEx(GetFontDefault(), strictText, fontSize, fontSpacing);
-    DrawText(strictText, (screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20, fontSize, LIGHTGRAY);
+    textSize = MeasureTextEx(font, strictText, fontSize, fontSpacing);
+    DrawTextEx(font, strictText, Vector2{ (screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20 }, fontSize, fontSpacing, GRAY);
     //DrawRectangleLines((screenWidth - textSize.x) / 2.0f, screenHeight - textSize.y - 20, textSize.x, textSize.y, RED);
 
     // Increment rotation
@@ -107,13 +112,23 @@ void UpdateDrawFrame(void)
 
     // Scale image
     float scale = 0.5f;
+    float scaleBig = 0.6f;
 
-    DrawTexturePro( 
+    DrawTexturePro(
+        iconTexture,
+        Rectangle{ 0, 0, (float)iconTexture.width, (float)iconTexture.height },
+        Rectangle{ screenWidth / 2.0f, screenHeight / 2.0f, iconTexture.width * scaleBig, iconTexture.height * scaleBig },
+        Vector2{ iconTexture.width / 2.0f * scaleBig, iconTexture.height / 2.0f * scaleBig },
+        (float)rotation,
+        LIGHTGRAY
+    );
+
+    DrawTexturePro(
         iconTexture,
         Rectangle{ 0, 0, (float)iconTexture.width, (float)iconTexture.height },
         Rectangle{ screenWidth / 2.0f, screenHeight / 2.0f, iconTexture.width * scale, iconTexture.height * scale },
         Vector2{ iconTexture.width / 2.0f * scale, iconTexture.height / 2.0f * scale },
-        (float)rotation,
+        -(float)rotation,
         WHITE
     );
 
