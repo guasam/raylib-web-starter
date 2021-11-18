@@ -6,7 +6,7 @@ Try : https://guasam.github.io/raylib-web-starter
 
 <br />
 
-## Why this doohickey?
+## What's the purpose?
 
 The idea of creating this project came into mind just because there was a lack of documentation and build process etc for Raylib projects, specially when we need to compile and deploy the project for `PLATFORM_WEB` (HTML5)
 
