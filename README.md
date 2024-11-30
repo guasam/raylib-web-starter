@@ -1,6 +1,6 @@
 # Raylib Web Starter
 
-A custom project for building Raylib C++ (game engine) projects with no hassle for the `PLATFORM_WEB`.
+A custom project for building Raylib C++ (game engine) projects without hassle of the `PLATFORM_WEB`.
 
 Try : https://guasam.github.io/raylib-web-starter
 
